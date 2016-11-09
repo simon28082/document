@@ -1,2 +1,4 @@
 <?php
-return [];
+return [
+    'current_form'=>[\CrCms\Document\Forms\DocumentForm::class],
+];

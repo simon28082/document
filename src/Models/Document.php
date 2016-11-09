@@ -22,7 +22,7 @@ class Document extends MongoModel
     /**
      * @var string
      */
-    protected $collection = 'documents';
+//    protected $collection = 'documents';
 
     /**
      * @var string
@@ -40,4 +40,14 @@ class Document extends MongoModel
      */
     protected $guarded = [];
 
+
+    /**
+     * Document constructor.
+     * @param array $attributes
+     */
+    public function __construct(array $attributes)
+    {
+        $this->collection = form()->table();
+        parent::__construct($attributes);
+    }
 }
