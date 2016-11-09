@@ -9,6 +9,8 @@
 namespace CrCms\Document\Providers;
 
 
+use CrCms\Document\Repositories\DocumentRepository;
+use CrCms\Document\Repositories\Interfaces\DocumentRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class ComponentServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class ComponentServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(DocumentRepositoryInterface::class,DocumentRepository::class);
     }
 
 
@@ -34,6 +37,7 @@ class ComponentServiceProvider extends ServiceProvider
     public function provides()
     {
         return [
+            DocumentRepositoryInterface::class,
         ];
     }
 

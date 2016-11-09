@@ -38,8 +38,8 @@ class DocumentServiceProvider extends PackageServiceProvider
         parent::register();
 
         //组件加载
-        $this->app->register(ComponentServiceProvider::class);
         $this->app->register(MongodbServiceProvider::class);
+        $this->app->register(ComponentServiceProvider::class);
     }
 
 }
