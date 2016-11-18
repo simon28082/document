@@ -9,6 +9,7 @@
 namespace CrCms\Document\Providers;
 
 
+use CrCms\Form\FormServiceProvider;
 use CrCms\Kernel\Providers\PackageServiceProvider;
 use Jenssegers\Mongodb\MongodbServiceProvider;
 
@@ -40,6 +41,7 @@ class DocumentServiceProvider extends PackageServiceProvider
         //组件加载
         $this->app->register(MongodbServiceProvider::class);
         $this->app->register(ComponentServiceProvider::class);
+        $this->app->register(FormServiceProvider::class);
     }
 
 }
