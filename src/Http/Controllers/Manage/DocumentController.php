@@ -11,7 +11,9 @@ namespace CrCms\Document\Http\Controllers\Manage;
 
 use CrCms\Document\Forms\DocumentForm;
 use CrCms\Document\Http\Requests\DocumentRequest;
+use CrCms\Document\Models\Document;
 use CrCms\Document\Repositories\Interfaces\DocumentRepositoryInterface;
+use CrCms\Form\FormRender;
 use CrCms\Kernel\Http\Controllers\Controller;
 
 class DocumentController extends Controller
@@ -26,7 +28,7 @@ class DocumentController extends Controller
         parent::__construct();
 
         $this->repository = $repository;
-        $this->form = form();
+        $this->form = app(config('document.form_drive'));
     }
 
     public function index()
@@ -54,7 +56,7 @@ class DocumentController extends Controller
      */
     public function create()
     {
-        $attributes = $this->form->attributes();
+        $attributes = (new FormRender)->render($this->form);
         return $this->view('create',compact('attributes'));
     }
 
@@ -63,18 +65,19 @@ class DocumentController extends Controller
      * @param DocumentRequest $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function store(DocumentRequest $request)
+    public function store()//DocumentRequest $request
     {
-        $model = $this->form->store($this->input);
-        return $this->response(['success'],compact('model'),route('documents.index'));
+        $model = $this->form->store($this->input[$this->form->hash()]);
+//        return $this->response(['success'],compact('model'),route('documents.index'));
     }
 
 
     public function edit(string $id)
     {
-        $attributes = $this->form->attributes();
         $model = $this->repository->findById($id);
-        return $this->view('edit',compact('attributes','model'));
+        $attributes = (new FormRender)->render($this->form,$model->toArray());
+
+        return $this->view('edit',compact('attributes','model','id'));
     }
 
 

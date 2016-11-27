@@ -45,9 +45,10 @@ class Document extends MongoModel
      * Document constructor.
      * @param array $attributes
      */
-    public function __construct(array $attributes)
+    public function __construct(array $attributes = [])
     {
-        $this->collection = form()->table();
+        $this->collection = app(config('document.form_drive'))->table();
         parent::__construct($attributes);
     }
+
 }

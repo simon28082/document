@@ -1,4 +1,5 @@
 <?php
 return [
-    'current_form'=>[\CrCms\Document\Forms\DocumentForm::class],
+    'form_drive'=>\CrCms\Document\Services\Document::class,
+    'theme'=>'default',
 ];
