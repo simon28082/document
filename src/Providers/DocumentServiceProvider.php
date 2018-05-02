@@ -1,47 +1,42 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: simon
- * Date: 2016/11/7
- * Time: 9:28
- */
 
 namespace CrCms\Document\Providers;
 
+use CrCms\Foundation\App\Providers\ModuleServiceProvider;
 
-use CrCms\Form\FormServiceProvider;
-use CrCms\Kernel\Providers\PackageServiceProvider;
-use Jenssegers\Mongodb\MongodbServiceProvider;
-
-class DocumentServiceProvider extends PackageServiceProvider
+/**
+ * Class DocumentServiceProvider
+ * @package CrCms\Document\Providers
+ */
+class DocumentServiceProvider extends ModuleServiceProvider
 {
+    /**
+     * @var string
+     */
+    protected $basePath = __DIR__ . '/../../';
+
+    /**
+     * @var string
+     */
+    protected $name = 'document';
 
     /**
      *
-     * @var string
-     * @author simon
      */
-    protected $namespaceName = 'document';
-
-    /**
-     *
-     * @var string
-     * @author simon
-     */
-    protected $packagePath = __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR;
-
-
-    /**
-     * register
-     */
-    public function register()
+    public function boot(): void
     {
-        parent::register();
+        parent::boot();
 
-        //组件加载
-        $this->app->register(MongodbServiceProvider::class);
-        $this->app->register(ComponentServiceProvider::class);
-        $this->app->register(FormServiceProvider::class);
+        $this->publishes([
+            $this->basePath . 'config/config.php' => config_path("{$this->name}.php"),
+            $this->basePath . 'resources/lang' => resource_path("lang/vendor/{$this->name}"),
+        ]);
     }
 
+    /**
+     * @return void
+     */
+    protected function repositoryListener(): void
+    {
+    }
 }

@@ -1,30 +1,44 @@
 {
-    "name": "crcms/document",
-    "description": "crcms document",
-    "type": "library",
-    "license": "MIT",
-    "homepage": "https://github.com/crcms/document",
-    "authors": [
-        {
-            "name": "simon",
-            "email": "28737164@qq.com",
-            "homepage": "http://crcms.cn"
-        }
-    ],
-    "require": {
-        "php":">=7.0",
-        "jenssegers/mongodb": "^3.1",
-        "crcms/form":"dev-master",
-        "crcms/category":"dev-master"
-    },
-    "autoload":{
-        "psr-4": {
-            "CrCms\\Document\\": "src/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
+  "name": "crcms/document",
+  "description": "crcms document",
+  "keywords": [
+    "document",
+    "crcms",
+    "laravel",
+    "php"
+  ],
+  "type": "crcms-module",
+  "license": "MIT",
+  "homepage": "https://github.com/crcms/document",
+  "authors": [
+    {
+      "name": "simon",
+      "email": "crcms@crcms.cn",
+      "homepage": "http://crcms.cn"
     }
+  ],
+  "require": {
+    "php": ">=7.1",
+    "jenssegers/mongodb": "3.4"
+  },
+  "require-dev": {
+    "fzaninotto/faker": "^1.7"
+  },
+  "autoload": {
+    "classmap": [
+      "database/factories"
+    ],
+    "psr-4": {
+      "CrCms\\Document\\": "src/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "CrCms\\Document\\Providers\\DocumentServiceProvider"
+      ],
+      "aliases": {
+      }
+    }
+  }
 }

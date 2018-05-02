@@ -2,24 +2,27 @@
 
 /**
  * @author simon <crcms@crcms.cn>
- * @datetime 2018-04-29 20:30
+ * @datetime 2018-05-01 13:16
  * @link http://crcms.cn/
  * @copyright Copyright &copy; 2018 Rights Reserved CRCMS
  */
 
 namespace CrCms\Document\Repositories;
 
+use CrCms\Document\Models\Model;
 use CrCms\Foundation\App\Repositories\AbstractRepository;
 
 /**
- * Class DocumentRepository
+ * Class ModelRepository
  * @package CrCms\Document\Repositories
  */
-class DocumentRepository extends AbstractRepository
+class ModelRepository extends AbstractRepository
 {
-    public function newModel()
+    /**
+     * @return Model
+     */
+    public function newModel(): Model
     {
-        // TODO: Implement newModel() method.
+        return app(Model::class);
     }
-
 }
