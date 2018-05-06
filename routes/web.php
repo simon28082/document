@@ -5,3 +5,8 @@
  * @link http://crcms.cn/
  * @copyright Copyright &copy; 2018 Rights Reserved CRCMS
  */
+
+
+Route::get('model/create',function() {
+    return view('document::model.store');
+});

@@ -9,28 +9,11 @@
 
 namespace CrCms\Document\Services\Documents\Contracts;
 
-use CrCms\Document\Models\DocumentModel;
-use Illuminate\Support\Collection;
-
 /**
  * Interface Document
  * @package CrCms\Document\Services\Documents\Contracts
  */
 interface Document
 {
-    public function list(Collection $collects): Collection;
-
-    public function create(): Collection;
-
-    public function update(array $data): array;
-
-    public function store(array $data): array;
-
-    public function edit(DocumentModel $model): Collection;
-
-    public function search(array $data): array;
-
-    public function single(DocumentModel $model): array ;
-
-    public function destroy(array $data): array;
+    public function handle(string $role);
 }

@@ -7,7 +7,6 @@
  */
 
 use Faker\Generator as Faker;
-use CrCms\Document\Models\DocumentModel;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +21,12 @@ use CrCms\Document\Models\DocumentModel;
 
 
 
-$factory->define(DocumentModel::class, function (Faker $faker) {
+$factory->define(\CrCms\Document\Models\Model::class, function (Faker $faker) {
     return [
-        'title' => $faker->title,
-        'content' => $faker->text,
-//        'created_at' => $faker->dateTime,
-//        'updated_at' => $faker->dateTime,
-//        'deleted_at' => null,
+        'table_name' => 'document',
+        'status'=>1,
+        'created_at' => $faker->dateTime,
+        'updated_at' => $faker->dateTime,
+        'deleted_at' => null,
     ];
 });

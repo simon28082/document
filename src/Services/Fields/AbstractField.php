@@ -9,7 +9,6 @@
 
 namespace CrCms\Document\Services\Fields;
 
-use CrCms\Document\Repositories\DocumentRepository;
 use CrCms\Document\Services\Fields\Contracts\Field;
 use Illuminate\Support\Str;
 
@@ -19,9 +18,9 @@ use Illuminate\Support\Str;
  */
 abstract class AbstractField implements Field
 {
-    const VALUE_STORE = 'store';
-
-    const VALUE_DISPLAY = 'display';
+//    const VALUE_STORE = 'store';
+//
+//    const VALUE_DISPLAY = 'display';
 
     protected $name;
 
@@ -39,13 +38,31 @@ abstract class AbstractField implements Field
 
     protected $roles;
 
-    protected $settings;
+    protected $config;
 
     protected $attributes;
 
-    public function __construct(array $attributes)
+    protected $original = [];
+
+    public function __construct(array $attributes, array $data = [])
     {
         $this->attributes = $attributes;
+        $this->original = $data;
+        $this->setAttributesValue( $attributes,$data);
+
+    }
+
+
+    protected function setAttributesValue(array $attributes,array $data): void
+    {
+        $attributes['value'] = $data[$attributes['name']] ?? null;
+        foreach ($attributes as $attribute => $value) {
+            $method = Str::studly("set_{$attribute}");
+            if (method_exists($this, $method)) {
+                $this->$method($value);
+            }
+        }
+        return;
     }
 
     public function setName(string $name): self
@@ -53,34 +70,26 @@ abstract class AbstractField implements Field
         $this->name = $name;
         return $this;
     }
-    
-    public function getName(): string
+
+    public function name(): string
     {
         return empty($this->alias) ? $this->name : $this->alias;
     }
 
-    public function setValue($value, string $type = self::VALUE_DISPLAY)
+    public function setValue($value)
     {
-        $method = Str::studly("{$type}_value");
-
-        $this->value = method_exists($this,$method) ?
-            $this->$method($value) : $value;
+        $this->value = $value;
         return $this;
     }
 
-    protected function storeValue($value)
+    public function storeValue()
     {
-        return $value;
+        return $this->value ?? null;
     }
 
-    protected function displayValue($value)
+    public function displayValue()
     {
-        return $value;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
+        return $this->value ?? null;
     }
 
     public function setRules(array $rules): self
@@ -89,7 +98,7 @@ abstract class AbstractField implements Field
         return $this;
     }
 
-    public function getRules(): array
+    public function rules(): array
     {
         return $this->rules ?? [];
     }
@@ -107,12 +116,10 @@ abstract class AbstractField implements Field
     /**
      * @return mixed
      */
-    public function getLabel(): string
+    public function label(): string
     {
-        return $this->label;
+        return $this->label ?? '';
     }
-
-
 
 
     public function setTip(string $tip): self
@@ -123,10 +130,11 @@ abstract class AbstractField implements Field
     /**
      * @return string
      */
-    public function getTip(): string
+    public function tip(): string
     {
-        return $this->tip;
+        return $this->tip ?? '';
     }
+
     /**
      * @param mixed $priority
      */
@@ -135,12 +143,9 @@ abstract class AbstractField implements Field
         $this->priority = $priority;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPriority()
+    public function priority(): int
     {
-        return $this->priority;
+        return $this->priority ?? 0;
     }
 
     public function setRoles(array $roles): self
@@ -149,29 +154,33 @@ abstract class AbstractField implements Field
         return $this;
     }
 
-    public function getRoles(): array
+    public function roles(): array
     {
         return $this->roles ?? [];
     }
 
+//    public function render(): array
+//    {
+//        return [
+//            'name' => $this->name(),
+//            'label' => $this->label(),
+//            'tip' => $this->tip(),
+//            'value' => $this->value(),
+//            'priority' => $this->priority(),
+//            'rules' => $this->rules(),
+//            'roles' => $this->roles(),
+//            'config' => $this->config(),
+//        ];
+//    }
 
-    public function render(): array
+    public function config(): array
     {
-        return [
-            'name' => $this->getName(),
-            'label' => $this->label,
-            'tip' => $this->tip,
-            'value' => $this->value,
-            'priority' => $this->priority,
-            'rules' => $this->getRules(),
-            'roles' => $this->getRoles(),
-        ];
+        return $this->config ?? [];
     }
 
-    public function settings(): array
+    protected function setConfig(array $config): self
     {
-        return [];
+        $this->config = $config;
+        return $this;
     }
-
-
 }

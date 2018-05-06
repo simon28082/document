@@ -27,4 +27,12 @@ class DocumentModel extends Model
     protected $keyType = 'string';
 
     protected $connection = 'mongodb';
+
+    protected $guarded = [];
+
+//    public function setCollection(string $collection): self
+//    {
+//        $this->collection = $collection;
+//        return $this;
+//    }
 }

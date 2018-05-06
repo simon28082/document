@@ -9,8 +9,12 @@
 
 namespace CrCms\Document\Http\Controllers\Api\Manage;
 
+use CrCms\Document\Models\Model;
 use CrCms\Document\Repositories\ModelRepository;
+use CrCms\Document\Services\Documents\Form;
 use CrCms\Foundation\App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * Class ModelController
@@ -24,6 +28,19 @@ class ModelController extends Controller
         $this->repository = $repository;
     }
 
+    public function create(string $id)
+    {
+        //$model = $this->repository->byStringIdOrFail($id);
+//        $model = new Model(['_id'=>]);
 
+        $fields = $this->repository->fields($model);
+
+        return (new Form($fields))->handle('create');
+    }
+
+    public function store()
+    {
+
+    }
 
 }

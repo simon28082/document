@@ -31,6 +31,8 @@ class DocumentServiceProvider extends ModuleServiceProvider
             $this->basePath . 'config/config.php' => config_path("{$this->name}.php"),
             $this->basePath . 'resources/lang' => resource_path("lang/vendor/{$this->name}"),
         ]);
+        
+        $this->loadViewsFrom($this->basePath.'resources/views',$this->name);
     }
 
     /**

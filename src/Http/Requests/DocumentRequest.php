@@ -12,10 +12,10 @@ namespace CrCms\Document\Http\Requests\Document;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class IndexRequest
- * @package CrCms\Modules\document\src\Http\Requests\Document
+ * Class DocumentRequest
+ * @package CrCms\Document\Http\Requests\Document
  */
-class IndexRequest extends FormRequest
+class DocumentRequest extends FormRequest
 {
 
     public function authorize(): bool
@@ -23,9 +23,11 @@ class IndexRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
-
+        return [
+//            'model_id' => ['required', ]
+        ];
     }
 
 }

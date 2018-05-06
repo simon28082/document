@@ -15,7 +15,48 @@ namespace CrCms\Document\Services\Fields\Contracts;
  */
 interface Field
 {
-    public function render(): array;
-
+    /**
+     * @return array
+     */
     public function settings(): array;
+
+    /**
+     * @return array
+     */
+    public function rules(): array;
+
+    /**
+     * @return array
+     */
+    public function roles(): array;
+
+    /**
+     * @return array
+     */
+    public function config(): array;
+
+    /**
+     * @return string
+     */
+    public function name(): string;
+
+    /**
+     * @return string
+     */
+    public function label(): string;
+
+    /**
+     * @return string
+     */
+    public function tip(): string;
+
+    /**
+     * @return mixed
+     */
+    public function storeValue();
+
+    /**
+     * @return mixed
+     */
+    public function displayValue();
 }

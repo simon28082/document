@@ -2,33 +2,33 @@
 
 /**
  * @author simon <crcms@crcms.cn>
- * @datetime 2018-04-29 20:39
+ * @datetime 2018-05-06 15:09
  * @link http://crcms.cn/
  * @copyright Copyright &copy; 2018 Rights Reserved CRCMS
  */
 
 namespace CrCms\Document\Services\Fields;
 
+use Carbon\Carbon;
 use CrCms\Document\Services\Fields\Contracts\Field;
 
 /**
- * Class Input
+ * Class DateTime
  * @package CrCms\Document\Services\Fields
  */
-class Input extends AbstractField implements Field
+class DateTime extends AbstractField implements Field
 {
-    /**
-     * @return array
-     */
     public function settings(): array
     {
-        return [
-            'type' => [
-                'input' => 'input',
-                'textarea' => 'textarea',
-            ],
-            'attributes' => [
-            ],
-        ];
+        return [];
+    }
+
+    public function displayValue()
+    {
+        if ($this->value instanceof Carbon) {
+            return $this->value->toDateTimeString();
+        }
+
+        return $this->value;
     }
 }
