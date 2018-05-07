@@ -9,6 +9,7 @@
 
 namespace CrCms\Document\Http\Controllers\Api\Manage;
 
+use CrCms\Document\Http\Requests\Model\StoreRequest;
 use CrCms\Document\Models\Model;
 use CrCms\Document\Repositories\ModelRepository;
 use CrCms\Document\Services\Documents\Form;
@@ -28,18 +29,11 @@ class ModelController extends Controller
         $this->repository = $repository;
     }
 
-    public function create(string $id)
+
+    public function store(StoreRequest $request)
     {
-        //$model = $this->repository->byStringIdOrFail($id);
-//        $model = new Model(['_id'=>]);
+        $model = $this->repository->create($request->all());
 
-        $fields = $this->repository->fields($model);
-
-        return (new Form($fields))->handle('create');
-    }
-
-    public function store()
-    {
 
     }
 

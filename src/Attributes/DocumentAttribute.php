@@ -37,6 +37,27 @@ class DocumentAttribute extends AbstractAttributeContract
 
     const KEY_ROLE = 'role';
 
+    /**
+     *
+     */
+    const STATUS_ENABLE = 1;
+
+    /**
+     *
+     */
+    const STATUS_HIDDEN = 2;
+
+    /**
+     *
+     */
+    const STATUS_DISABLE = 3;
+
+    /**
+     *
+     */
+    const KEY_STATUS = 'status';
+
+
     protected function attributes(): array
     {
         return [
@@ -50,6 +71,12 @@ class DocumentAttribute extends AbstractAttributeContract
                 static::ROLE_STORE_RULE => trans('document::app.role.store_rule'),
                 static::ROLE_UPDATE_RULE => trans('document::app.role.update_rule'),
                 static::ROLE_SINGLE => trans('document::app.role.single'),
+            ],
+
+            static::KEY_STATUS => [
+                static::STATUS_ENABLE =>  trans('document::app.status.enable'),
+                static::STATUS_HIDDEN =>  trans('document::app.status.hidden'),
+                static::STATUS_DISABLE =>  trans('document::app.status.disable')
             ]
         ];
     }
