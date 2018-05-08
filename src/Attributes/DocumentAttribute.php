@@ -57,7 +57,9 @@ class DocumentAttribute extends AbstractAttributeContract
      */
     const KEY_STATUS = 'status';
 
-
+    /**
+     * @return array
+     */
     protected function attributes(): array
     {
         return [
@@ -80,5 +82,4 @@ class DocumentAttribute extends AbstractAttributeContract
             ]
         ];
     }
-
 }

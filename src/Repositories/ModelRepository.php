@@ -24,6 +24,8 @@ use Illuminate\Support\Str;
  */
 class ModelRepository extends AbstractRepository
 {
+    protected $guard = ['name', 'table_name', 'status', 'built_fields'];
+
     /**
      * @return Model
      */
@@ -38,7 +40,7 @@ class ModelRepository extends AbstractRepository
             [
                 'name' => 'title',
                 'type' => Input::class,
-                'roles' => ['create','list', 'single','store_rule', 'store','edit','update'],
+                'roles' => ['create', 'list', 'single', 'store_rule', 'store', 'edit', 'update'],
                 'config' => [
                     'type' => 'input',
                 ]
@@ -46,21 +48,21 @@ class ModelRepository extends AbstractRepository
             [
                 'name' => 'content',
                 'type' => Input::class,
-                'roles' => ['create','list', 'single', 'store_rule','store','edit','update'],
+                'roles' => ['create', 'list', 'single', 'store_rule', 'store', 'edit', 'update'],
                 'config' => [
                     'type' => 'textarea',
                 ]
             ]
         ];
-        
+
 
 //        if (isset($model->build_in_field) && $model->build_in_field === 1) {
-            $fields = array_merge($fields, $this->builtInFields());
+        $fields = array_merge($fields, $this->builtInFields());
 //        }
 
         return collect($fields)->mapWithKeys(function (array $field) use ($data) {
 //            $field['value'] = $data[$field['name']] ?? null;
-            $object = new $field['type']($field,$data);
+            $object = new $field['type']($field, $data);
 
 //            if (isset($data[$field['name']])) {
 //
@@ -82,7 +84,7 @@ class ModelRepository extends AbstractRepository
         return [
             [
                 'name' => '_id',
-                'roles' => ['list','single','edit','update'],
+                'roles' => ['list', 'single', 'edit', 'update'],
                 'type' => PrimaryKey::class
             ],
             [
@@ -98,7 +100,7 @@ class ModelRepository extends AbstractRepository
 //            ],
             [
                 'name' => 'created_uid',
-                'roles' => [ 'store', 'list', 'single'],
+                'roles' => ['store', 'list', 'single'],
                 'type' => UserId::class,
 //                'store_format' => function ($value) {
 //                    return $value;
@@ -109,13 +111,22 @@ class ModelRepository extends AbstractRepository
             ],
             [
                 'name' => 'updated_uid',
-                'roles' => ['store',  'update', 'list', 'single'],
+                'roles' => ['store', 'update', 'list', 'single'],
                 'type' => UserId::class,
             ],
 //            [
 //                'name' => 'deleted_uid',
 //                'roles' => []
 //            ],
+        ];
+    }
+
+
+    public static function defaultBuiltInFields(): array
+    {
+        return [
+            'created_uid' => [],
+            'updated_uid' => []
         ];
     }
 }

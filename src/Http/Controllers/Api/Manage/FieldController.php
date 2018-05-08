@@ -9,6 +9,7 @@
 
 namespace CrCms\Document\Http\Controllers\Api\Manage;
 
+use CrCms\Document\Repositories\ModelRepository;
 use CrCms\Foundation\App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
@@ -34,5 +35,13 @@ class FieldController extends Controller
 
         $settings = (new $class)->settings();
         return $this->response->data($settings);
+    }
+
+    /**
+     * @return array
+     */
+    public function getBuildInFields(): array
+    {
+        return $this->response->data(array_keys(ModelRepository::defaultBuiltInFields()));
     }
 }

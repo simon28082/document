@@ -10,12 +10,9 @@
 namespace CrCms\Document\Http\Controllers\Api\Manage;
 
 use CrCms\Document\Http\Requests\Model\StoreRequest;
-use CrCms\Document\Models\Model;
+use CrCms\Document\Http\Resources\ModelResource;
 use CrCms\Document\Repositories\ModelRepository;
-use CrCms\Document\Services\Documents\Form;
 use CrCms\Foundation\App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpKernel\Exception\UnprocessableEntityHttpException;
 
 /**
  * Class ModelController
@@ -29,12 +26,23 @@ class ModelController extends Controller
         $this->repository = $repository;
     }
 
+    public function index()
+    {
+        $models = $this->repository->all();
+
+        return $this->response->collection($models, ModelResource::class);
+    }
 
     public function store(StoreRequest $request)
     {
         $model = $this->repository->create($request->all());
 
-
+        return $this->response->resource($model, ModelResource::class);
     }
 
+
+    public function update()
+    {
+
+    }
 }

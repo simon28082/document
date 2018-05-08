@@ -19,5 +19,13 @@ Route::prefix('api/v1')->namespace('CrCms\Document\Http\Controllers\Api')->middl
         ])->except(['show']);
 
         Route::get('fields/{fieldType}/settings','FieldController@getFieldSettings')->name('document.fields.settings');
+        Route::get('fields/default-build-in','FieldController@getBuildInFields')->name('document.fields.build-in-fields');
+
+        Route::apiResource('models','ModelController')->names([
+            'index' => 'document.models.index',
+            'store' => 'document.models.store',
+            'update' => 'document.models.update',
+            'destroy' => 'document.models.destroy',
+        ])->except(['show']);
     });
 });

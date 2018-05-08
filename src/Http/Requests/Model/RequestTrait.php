@@ -1,14 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: simon
- * Date: 2018/5/7
- * Time: 16:51
- */
 
 namespace CrCms\Document\Http\Requests\Model;
 
-use CrCms\Document\Services\Documents\Rule;
+use Illuminate\Validation\Rule;
 
 /**
  * Trait RequestTrait
@@ -32,8 +26,8 @@ trait RequestTrait
         return [
             'name' => ['required', 'min:1', 'max:30'],
             'table_name' => ['required', Rule::unique('model')->ignore($this->input('_id'))],
-            'status' => ['required', 'integer', 'min:0'],
-            'hide_fields' => ['array'],
+            'status' => ['required', 'integer', 'min:1'],
+            'built_fields' => ['array'],
         ];
     }
 
@@ -46,7 +40,7 @@ trait RequestTrait
             'name' => trans('document::app.model.name'),
             'table_name' => trans('document::app.model.table_name'),
             'status' => trans('document::app.model.status'),
-            'hide_fields' => trans('document::app.model.hide_fields'),
+            'built_fields' => trans('document::app.model.hide_fields'),
         ];
     }
 }
