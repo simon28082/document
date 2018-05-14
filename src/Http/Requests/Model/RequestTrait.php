@@ -25,7 +25,7 @@ trait RequestTrait
     {
         return [
             'name' => ['required', 'min:1', 'max:30'],
-            'table_name' => ['required', Rule::unique('model')->ignore($this->input('_id'))],
+            'table_name' => ['required', new Unique($this->input('_id'))],//Rule::unique('model')->ignore($this->input('_id'))
             'status' => ['required', 'integer', 'min:1'],
             'built_fields' => ['array'],
         ];
