@@ -20,11 +20,28 @@ class Model extends BaseModel
 {
     use SoftDeletes;
 
+    /**
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * @var array
+     */
     protected $dates = ['deleted_at'];
 
+    /**
+     * @var string
+     */
     protected $connection = 'mongodb';
 
+    /**
+     * @var string
+     */
     protected $primaryKey = '_id';
 
+    /**
+     * @var string
+     */
     protected $keyType = 'string';
 }

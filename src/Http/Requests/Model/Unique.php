@@ -6,24 +6,41 @@ use CrCms\Document\Models\Model;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 
+/**
+ * Class Unique
+ * @package CrCms\Document\Http\Requests\Model
+ */
 class Unique implements Rule
 {
-
+    /**
+     * @var string null
+     */
     protected $id;
 
-    public function __construct($id = null)
+    /**
+     * Unique constructor.
+     * @param null $id
+     */
+    public function __construct(?string $id = null)
     {
         $this->id = $id;
     }
 
-    public function passes($attribute, $value)
+    /**
+     * @param string $attribute
+     * @param mixed $value
+     * @return bool
+     */
+    public function passes($attribute, $value): bool
     {
-        return Model::where($attribute,$value)->where('_id',$this->id)->first();
+        return !(bool)Model::where($attribute, $value)->where('_id', '!=', (string)$this->id)->first();
     }
 
-    public function message()
+    /**
+     * @return string
+     */
+    public function message(): string
     {
         return trans('document::app.model.table_name');
     }
-
 }

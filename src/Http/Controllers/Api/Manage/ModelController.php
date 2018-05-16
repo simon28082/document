@@ -10,6 +10,7 @@
 namespace CrCms\Document\Http\Controllers\Api\Manage;
 
 use CrCms\Document\Http\Requests\Model\StoreRequest;
+use CrCms\Document\Http\Requests\Model\UpdateRequest;
 use CrCms\Document\Http\Resources\ModelResource;
 use CrCms\Document\Repositories\ModelRepository;
 use CrCms\Foundation\App\Http\Controllers\Controller;
@@ -20,29 +21,53 @@ use CrCms\Foundation\App\Http\Controllers\Controller;
  */
 class ModelController extends Controller
 {
-
+    /**
+     * ModelController constructor.
+     * @param ModelRepository $repository
+     */
     public function __construct(ModelRepository $repository)
     {
         $this->repository = $repository;
+        parent::__construct();
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index()
     {
         $models = $this->repository->all();
-
         return $this->response->collection($models, ModelResource::class);
     }
 
+    /**
+     * @param StoreRequest $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreRequest $request)
     {
         $model = $this->repository->create($request->all());
-
         return $this->response->resource($model, ModelResource::class);
     }
 
-
-    public function update()
+    /**
+     * @param UpdateRequest $request
+     * @param string $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function update(UpdateRequest $request, string $id)
     {
+        $model = $this->repository->update($request->all(), $id);
+        return $this->response->resource($model, ModelResource::class);
+    }
 
+    /**
+     * @param string $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function destroy(string $id)
+    {
+        $row = $this->repository->delete($id);
+        return $this->response->noContent();
     }
 }
