@@ -12,7 +12,7 @@ namespace CrCms\Mall\Http\Controllers\Api\Manage;
 use CrCms\Document\Http\Resources\DefaultResource;
 use CrCms\Document\Services\DocumentContract;
 use CrCms\Foundation\App\Http\Controllers\Controller;
-use CrCms\Foundation\App\Repositories\AbstractRepository;
+use CrCms\Foundation\App\Http\Resources\Resource;
 use Illuminate\Http\Request;
 
 /**
@@ -31,21 +31,23 @@ class ContentController extends Controller
 
     public function index(Request $request)
     {
-        $model = $this->service->index($request);
+        $models = $this->service->index($request);
         //....
+        return $this->response->collection($this->service->resource($models),Resource::class);
     }
 
     public function store(Request $request)
     {
         $model = $this->service->store($request);
-        return new DefaultResource($model);
+
+        return $this->response->resource($this->service->resource($model), Resource::class);
     }
 
     public function update(Request $request, string $id)
     {
         $model = $this->service->update($request, $id);
 
-        return new DefaultResource($model);
+        return $this->response->resource($this->service->resource($model), Resource::class);
     }
 
     public function destroy(Request $request, string $id)
