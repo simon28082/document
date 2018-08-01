@@ -23,10 +23,10 @@ class DefaultController extends Controller
         $this->response    = $response;
     }
 
-    public function index(Request $request)
+    public function index(Request $request,$version)
     {
         //echo "avc";
         //return ['ni'=>12];
-        return $request->url();
+        return $version;
     }
 }

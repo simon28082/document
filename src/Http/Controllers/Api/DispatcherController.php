@@ -29,7 +29,9 @@ class DispatcherController
         $class = __NAMESPACE__ . '\\' . $controller;
         //$method = $this->request->route()->getActionMethod();
 
+
         return app(ControllerDispatcher::class)->dispatch($this->route, app($class), $method);
+
 
     }
 

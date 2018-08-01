@@ -12,7 +12,8 @@ namespace CrCms\Document\Http\Controllers\Api;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use CrCms\Document\Http\Requests\ContentRequest;
+use CrCms\Document\Http\Requests\Content\StoreRequest;
+use CrCms\Document\Http\Requests\Content\IndexRequest;
 use CrCms\Document\Repositories\ContentRepository;
 use CrCms\Document\Http\Response\Response;
 use CrCms\Foundation\App\Http\Controllers\Controller;
@@ -29,18 +30,18 @@ class ContentController extends Controller
     /**
      * @param Request $request
      */
-    public function index(Request $request)
+    public function index(IndexRequest $request)
     {
         return $this->repository->get();
 
     }
 
     /**
-     * @param ContentRequest $request
+     * @param StoreRequest $request
      */
-    public function store(ContentRequest $request)
+    public function store(StoreRequest $request)
     {
-        $this->repository->create($request->all());
+        $this->repository->create($request->input());
         return $this->response->created();
     }
 }
