@@ -15,14 +15,13 @@ class ContentService implements DocumentContract
 {
     public function index()
     {
-        $request = (new IndexRequest())->getValidatorInstance();
-        return  "a";
+
     }
 
 
     public function repository(AbstractRepository $repository)
     {
-        $repository->getModel()->setTable('article');
+        $repository->getModel()->setTable('content');
     }
 
 
