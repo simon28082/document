@@ -8,12 +8,30 @@
 
 namespace CrCms\Document\Http\Resources;
 
-use Illuminate\Http\Resources\Json\ResourceCollection;
+use CrCms\Foundation\App\Http\Resources\Resource;
+use Illuminate\Support\Carbon;
 
-class DefaultResource extends ResourceCollection
+class DefaultResource extends Resource
 {
+    protected $fields;
+
+    public function __construct($resource, $fields)
+    {
+        parent::__construct($resource);
+        $this->fields = $fields;
+    }
+
+
     public function toArray($request)
     {
-        return [];
+        return collect($this->fields)->mapWithKeys(function($field){
+            if ($this->{$field} instanceof Carbon) {
+                $value = $this->{$field}->toDateTimeString();
+            } else {
+                $value = $this->{$field};
+            }
+
+            return [$field => $value];
+        });
     }
 }
