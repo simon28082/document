@@ -8,11 +8,13 @@
 
 namespace CrCms\Document\Services;
 
+use CrCms\Document\Models\DefaultModel;
 use CrCms\Foundation\App\Repositories\AbstractRepository;
+use Illuminate\Http\Request;
 
 class ArticleService implements DocumentContract
 {
-    public function index()
+    public function index(Request $request)
     {
         return  "a";
     }
@@ -21,5 +23,17 @@ class ArticleService implements DocumentContract
     public function repository(AbstractRepository $repository)
     {
         $repository->getModel()->setTable('article');
+    }
+
+    public function destroy(Request $request, string $id): int
+    {
+    }
+
+    public function store(Request $request): DefaultModel
+    {
+    }
+
+    public function update(Request $request, string $id): DefaultModel
+    {
     }
 }

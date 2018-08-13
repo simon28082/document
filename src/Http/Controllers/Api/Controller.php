@@ -21,14 +21,14 @@ use CrCms\Foundation\App\Repositories\AbstractRepository;
 
 class Controller extends BaseController
 {
-    private $_services;
-    private $_repository;
+    private $services;
+    private $repository;
 
     public function __construct(DocumentContract $contract, AbstractRepository $repository)
     {
-        $this->_services   = $contract;
-        $this->_repository = $repository;
-        $this->_services->repository($this->_repository);
+        $this->services   = $contract;
+        $this->repository = $repository;
+        $this->services->repository($this->repository);
     }
 
     /**
@@ -36,6 +36,6 @@ class Controller extends BaseController
      */
     public function index()
     {
-        return $this->_services->index();
+        return $this->services->index();
     }
 }
