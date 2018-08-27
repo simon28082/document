@@ -9,39 +9,34 @@
 
 namespace CrCms\Document\Http\Controllers\Api;
 
+use CrCms\Document\Http\Resources\ContentIndexResource;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use CrCms\Document\Http\Requests\Content\StoreRequest;
-use CrCms\Document\Http\Requests\Content\IndexRequest;
-use CrCms\Document\Repositories\ContentRepository;
-use CrCms\Document\Http\Response\Response;
+use CrCms\Document\Services\DocumentContract;
 use CrCms\Foundation\App\Http\Controllers\Controller;
-use DB;
+use CrCms\Foundation\App\Http\Resources\Resource;
 
 class ContentController extends Controller
 {
-    public function __construct(ContentRepository $repository, Response $response)
+    // 服务--由DocumentContract对应不同的服务
+    public $service;
+
+    public function __construct(DocumentContract $service)
     {
-        $this->repository = $repository;
-        $this->response    = $response;
+        parent::__construct();
+        $this->service = $service;
     }
 
     /**
      * @param Request $request
+     * @param string $version
+     * @return \Illuminate\Http\Response
      */
-    public function index(IndexRequest $request)
+    public function index(Request $request, string $version)
     {
-        return $this->repository->get();
+        $models = $this->service->index($request);
+        return $this->response()->collection($this->service->resource($models),Resource::class);
 
-    }
-
-    /**
-     * @param StoreRequest $request
-     */
-    public function store(StoreRequest $request)
-    {
-        $this->repository->create($request->input());
-        return $this->response->created();
     }
 }

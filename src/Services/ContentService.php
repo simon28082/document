@@ -8,12 +8,12 @@
 
 namespace CrCms\Document\Services;
 
+use CrCms\Document\Http\Resources\Content\ContentIndexResource;
 use CrCms\Document\Http\Resources\DefaultResource;
 use CrCms\Document\Models\DefaultModel;
 use CrCms\Document\Repositories\ContentRepository;
 use CrCms\Foundation\App\Http\Resources\Resource;
 use CrCms\Foundation\App\Repositories\AbstractRepository;
-use CrCms\Document\Http\Requests\Content\IndexRequest;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
@@ -24,32 +24,19 @@ class ContentService implements DocumentContract
 
     protected $repository;
 
-    public function __construct(ContentRepository $repository)
+    public function __construct()
     {
-
-
-        $this->repository = $repository;
+        $this->init();
     }
 
-//    public function index()
-//    {
-//        $request = (new IndexRequest())->getValidatorInstance();
-//        return  "a";
-//    }
-//
-//
-//    public function repository(AbstractRepository $repository)
-//    {
-//        $repository->getModel()->setTable('article');
-//    }
+    public function init()
+    {
+        $this->repository = new ContentRepository();
+    }
+
     public function index(Request $request)
     {
-        $this->validate($request, [
-            'title' => ['required']
-        ], [], [
-            'title' => trans('document::app.title')
-        ]);
-
+        $this->request = $request;
         return $this->repository->paginate();
     }
 
@@ -75,10 +62,13 @@ class ContentService implements DocumentContract
     public function resource($resource)
     {
         if ($resource instanceof Paginator) {
-            //循环
-            //$resource->items()
 
-            $data = $resource;
+            $res = [];
+            foreach ($resource->items() as $key => $value) {
+                $res[] = (new ContentIndexResource($resource, $value));
+
+            }
+            $data = collect($res);
         } else {
             //一堆格式化处理
             $data = collect($resource);

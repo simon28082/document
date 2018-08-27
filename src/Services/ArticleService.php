@@ -16,7 +16,12 @@ class ArticleService implements DocumentContract
 {
     public function index(Request $request)
     {
-        return  "a";
+
+    }
+
+    public function init()
+    {
+        // TODO: Implement init() method.
     }
 
 

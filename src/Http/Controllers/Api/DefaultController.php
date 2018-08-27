@@ -13,20 +13,15 @@ use CrCms\Document\Http\Requests\DefaultRequest;
 use CrCms\Document\Repositories\ModelRepository;
 use CrCms\Document\Repositories\ContentRepository;
 use CrCms\Foundation\App\Http\Controllers\Controller;
-use CrCms\Document\Http\Response\Response;
 
 class DefaultController extends Controller
 {
-    public function __construct(ContentRepository $repository, Response $response)
+    public function __construct()
     {
-        $this->repository = $repository;
-        $this->response    = $response;
     }
 
     public function index(Request $request,$version)
     {
-        //echo "avc";
-        //return ['ni'=>12];
         return $version;
     }
 }

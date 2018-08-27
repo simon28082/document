@@ -7,7 +7,7 @@
  * @copyright Copyright &copy; 2018 Rights Reserved CRCMS
  */
 
-namespace CrCms\Mall\Http\Controllers\Api\Manage;
+namespace CrCms\Document\Http\Controllers\Api\Manage;
 
 use CrCms\Document\Http\Resources\DefaultResource;
 use CrCms\Document\Services\DocumentContract;

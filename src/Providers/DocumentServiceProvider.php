@@ -46,10 +46,7 @@ class DocumentServiceProvider extends ModuleServiceProvider
             $class = '\\CrCms\\Document\\Services\\'.$type.'Service';
             return new $class();
         });
-        /*$this->app->bind(AbstractRepository::class, function ($app) use ($type){
-            $class = '\\CrCms\\Document\\Repositories\\'.$type.'Repository';
-            return new $class();
-        });*/
+
 
         $this->loadViewsFrom($this->basePath.'resources/views',$this->name);
     }

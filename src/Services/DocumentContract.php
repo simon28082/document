@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 
 interface DocumentContract
 {
+    public function init();
+
     public function index(Request $request);
 
     public function store(Request $request): DefaultModel;
