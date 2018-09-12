@@ -47,7 +47,6 @@ class DocumentServiceProvider extends ModuleServiceProvider
             return new $class();
         });
 
-
         $this->loadViewsFrom($this->basePath.'resources/views',$this->name);
     }
 

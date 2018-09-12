@@ -18,9 +18,11 @@ interface DocumentContract
 
     public function index(Request $request);
 
-    public function store(Request $request): DefaultModel;
+    public function store(Request $request);
 
-    public function update(Request $request, string $id): DefaultModel;
+    public function show(Request $request, string $id);
+
+    public function update(Request $request, string $id);
 
     public function destroy(Request $request, string $id): int;
 }

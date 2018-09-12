@@ -11,5 +11,10 @@ return [
         'not_found'         => '请求的资源不存在',
         'not_acceptable'    => '请求的响应格式不存在',
         'gone'              => '资源被永久性删除',
+    ],
+    'validate' => [
+        'error' => 'Your input dose not conform to the rules!',
+        'title' => 'Title',
+        'body' => 'body'
     ]
 ];
